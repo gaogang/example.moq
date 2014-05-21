@@ -57,6 +57,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="PatientListPresenterTest.cs" />
+    <Compile Include="PatientRegistrationFormViewPresenterTest.cs" />
     <Compile Include="PatientRegistrationServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
