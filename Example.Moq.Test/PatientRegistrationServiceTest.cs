@@ -20,7 +20,7 @@ namespace Example.Moq.Test
             // 检验:
             // 1. IPatientRepository的SavePatient函数会被调用
             // 2. SavePatient的入参和预期一致
-            repository.Setup(r => r.SavePatient(It.Is<Patient>(p => p.PatientName == expected)))      
+            repository.Setup(r => r.SavePatient(It.Is<Patient>(p => p.PatientName == expected)))   
                 .Verifiable();
 
             var target = new PatientRegistrationService(repository.Object);
@@ -33,7 +33,7 @@ namespace Example.Moq.Test
         }
 
         [Test]
-        public void RegisterPatient_RegisterAPatient_ShouldCallSavePatientOnRepository1()
+        public void RegisterPatient_RegisterAPatient_VerifyCallSavePatientOnRepository()
         {
             // Arrange
             var repository = new Mock<IPatientRepository>();
@@ -50,7 +50,6 @@ namespace Example.Moq.Test
             // 2. SavePatient的入参和预期一致
             // 3. SavePatient只会被调用一次
             repository.Verify(r => r.SavePatient(It.Is<Patient>(p => p.PatientName == expected)), 
-                //
                 Times.Once);
         }
 
