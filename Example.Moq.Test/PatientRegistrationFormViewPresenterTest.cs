@@ -40,6 +40,22 @@ namespace Example.Moq.Test
         }
 
         [Test]
+        public void Save_RegisterNewPatient_ShouldGetPatientNameFromView_2()
+        {
+            // Arrange
+            var registrationService = new Mock<IPatientRegistrationService>();
+            var view = new Mock<IPatientRegistrationFormView>();
+
+            var presenter = new PatientRegistrationFormViewPresenter(view.Object, registrationService.Object);
+
+            // Action
+            presenter.Save();
+
+            // Assert
+            view.Verify(v => v.PatientName, Times.Once);
+        }
+
+        [Test]
         public void Load_LoadPatientInfo_ShouldSetPatientNameToView()
         {
             // Arrange
@@ -64,6 +80,27 @@ namespace Example.Moq.Test
             // Assert
             view.Verify();
             registrationService.Verify();
+        }
+
+        [Test]
+        public void Load_LoadPatientInfo_ShouldSetPatientNameToView_2()
+        {
+            // Arrange
+            var registrationService = new Mock<IPatientRegistrationService>();
+            var view = new Mock<IPatientRegistrationFormView>();
+
+            var patientName = "Test Patient";
+
+            // 插入GetPatient的返回值
+            registrationService.Setup(r => r.GetPatient()).Returns(patientName);
+
+            var presenter = new PatientRegistrationFormViewPresenter(view.Object, registrationService.Object);
+
+            // Action
+            presenter.Load();
+
+            // Assert
+            view.Verify(v => v.PatientName == patientName, Times.Once);
         }
     }
 }
